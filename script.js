@@ -14,3 +14,7 @@ function getRandomMatrix(rowsCount = 5, colsCount = 5, rndMin, rndMax) {
 
     return matrix;
 }
+
+function printMatrix(matrix) {
+    matrix.forEach(row => console.log(row.join("  ")));
+}
