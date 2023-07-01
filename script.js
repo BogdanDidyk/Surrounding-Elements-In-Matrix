@@ -18,3 +18,7 @@ function getRandomMatrix(rowsCount = 5, colsCount = 5, rndMin, rndMax) {
 function printMatrix(matrix) {
     matrix.forEach(row => console.log(row.join("  ")));
 }
+
+function isValueInRange(value, lowerBoundary, upperBoundary) {
+    return value >= lowerBoundary && value <= upperBoundary;
+}
