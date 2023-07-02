@@ -54,3 +54,8 @@ function getSurroundingElementsInMatrix(matrix, rowIndex, colIndex, distance = 1
     
     return surroundingElements;
 }
+
+const matrix = getRandomMatrix(4, 4);
+const surroundingElements = getSurroundingElementsInMatrix(matrix, 2, 1);
+printMatrix(matrix);
+console.log(surroundingElements);
