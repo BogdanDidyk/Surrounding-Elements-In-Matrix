@@ -22,3 +22,35 @@ function printMatrix(matrix) {
 function isValueInRange(value, lowerBoundary, upperBoundary) {
     return value >= lowerBoundary && value <= upperBoundary;
 }
+
+function getSurroundingElementsInMatrix(matrix, rowIndex, colIndex, distance = 1) {
+    const rowsCount = matrix.length;
+    const colsCount = rowsCount > 0 ? matrix[0].length : 0;
+    const surroundingElements = [];
+    const isRowIndexValid = (index) => isValueInRange(index, 0, rowsCount - 1);
+    const isColIndexValid = (index) => isValueInRange(index, 0, colsCount - 1);
+    const areCurrentIndicesEqualTo = (i, j) => i === rowIndex && j === colIndex;
+    let newRowIndex;
+    let newColIndex;
+    
+    if (rowsCount === 0 || colsCount === 0 || !isRowIndexValid(rowIndex) || !isColIndexValid(colIndex)) {
+        return surroundingElements;
+    }
+
+    if (distance >= rowsCount - 1 && distance >= colsCount - 1) {
+        return matrix.flat();
+    }
+    
+    for (let i = -distance; i <= distance; i++) {
+        for (let j = -distance; j <= distance; j++) {
+            newRowIndex = rowIndex + i;
+            newColIndex = colIndex + j;
+            
+            if (isRowIndexValid(newRowIndex) && isColIndexValid(newColIndex) && !areCurrentIndicesEqualTo(newRowIndex, newColIndex)) {
+                surroundingElements.push(matrix[newRowIndex][newColIndex]);
+            }
+        }
+    }
+    
+    return surroundingElements;
+}
