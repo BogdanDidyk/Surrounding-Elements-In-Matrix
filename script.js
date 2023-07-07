@@ -23,10 +23,10 @@ function isValueInRange(value, lowerBoundary, upperBoundary) {
     return value >= lowerBoundary && value <= upperBoundary;
 }
 
-function getSurroundingElementsInMatrix(matrix, rowIndex, colIndex, distance = 1) {
+function getMatrixSurroundingIndicesFor(matrix, rowIndex, colIndex, distance = 1) {
     const rowsCount = matrix.length;
     const colsCount = rowsCount > 0 ? matrix[0].length : 0;
-    const surroundingElements = [];
+    const surroundingIndices = [];
     const isRowIndexValid = (index) => isValueInRange(index, 0, rowsCount - 1);
     const isColIndexValid = (index) => isValueInRange(index, 0, colsCount - 1);
     const areCurrentIndicesEqualTo = (i, j) => i === rowIndex && j === colIndex;
@@ -34,7 +34,7 @@ function getSurroundingElementsInMatrix(matrix, rowIndex, colIndex, distance = 1
     let newColIndex;
     
     if (rowsCount === 0 || colsCount === 0 || !isRowIndexValid(rowIndex) || !isColIndexValid(colIndex)) {
-        return surroundingElements;
+        return surroundingIndices;
     }
 
     if (distance >= rowsCount - 1 && distance >= colsCount - 1) {
@@ -47,15 +47,30 @@ function getSurroundingElementsInMatrix(matrix, rowIndex, colIndex, distance = 1
             newColIndex = colIndex + j;
             
             if (isRowIndexValid(newRowIndex) && isColIndexValid(newColIndex) && !areCurrentIndicesEqualTo(newRowIndex, newColIndex)) {
-                surroundingElements.push(matrix[newRowIndex][newColIndex]);
+                surroundingIndices.push([newRowIndex, newColIndex]);
             }
         }
     }
     
-    return surroundingElements;
+    return surroundingIndices;
+}
+
+function getMatrixValuesByIndices(matrix, indices) {
+    const length = indices.length;
+    const values = [];
+    
+    for (let i = 0; i < length; i++) {
+        values.push(matrix[indices[i][0]][indices[i][1]]);
+    }
+
+    return values;
 }
 
 const matrix = getRandomMatrix(4, 4);
-const surroundingElements = getSurroundingElementsInMatrix(matrix, 2, 1);
+const surroundingIndices = getMatrixSurroundingIndicesFor(matrix, 2, 1);
+const values = getMatrixValuesByIndices(matrix, surroundingIndices);
 printMatrix(matrix);
-console.log(surroundingElements);
+console.log("");
+console.log(surroundingIndices);
+console.log("");
+console.log(values);
