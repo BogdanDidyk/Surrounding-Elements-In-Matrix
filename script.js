@@ -2,6 +2,10 @@ function getRandomIntegerNumber(rndMin = 0, rndMax = 9) {
     return Math.floor(Math.random() * (rndMax - rndMin + 1)) + rndMin;
 }
 
+function getRandomIntegerArray(length, min, max) {
+    return getArrayOfLength(length).map(() => getRandomIntegerNumber(min, max));
+}
+
 function getRandomMatrix(rowsCount = 5, colsCount = 5, rndMin, rndMax) {
     const matrix = [];
 
