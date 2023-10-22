@@ -1,5 +1,5 @@
-function getRandomIntegerNumber(rndMin = 0, rndMax = 9) {
-    return Math.floor(Math.random() * (rndMax - rndMin + 1)) + rndMin;
+function getRandomInteger(min = 0, max = 9) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function getArrayOfLength(length) {
@@ -7,7 +7,7 @@ function getArrayOfLength(length) {
 }
 
 function getRandomIntegerArray(length, min, max) {
-    return getArrayOfLength(length).map(() => getRandomIntegerNumber(min, max));
+    return getArrayOfLength(length).map(() => getRandomInteger(min, max));
 }
 
 function getRandomIntegerMatrix(rows, cols, min, max) {
@@ -22,36 +22,36 @@ function isValueInRange(value, lowerBoundary, upperBoundary) {
     return value >= lowerBoundary && value <= upperBoundary;
 }
 
-function getMatrixSurroundingIndicesFor(matrix, rowIndex, colIndex, distance = 1) {
-    const rowsCount = matrix.length;
-    const colsCount = rowsCount > 0 ? matrix[0].length : 0;
-    const surroundingIndices = [];
-    const isRowIndexValid = (index) => isValueInRange(index, 0, rowsCount - 1);
-    const isColIndexValid = (index) => isValueInRange(index, 0, colsCount - 1);
-    const areCurrentIndicesEqualTo = (i, j) => i === rowIndex && j === colIndex;
-    let newRowIndex;
-    let newColIndex;
+function getSurroundingItemsInMatrixFor(matrix, rowIndex, colIndex, distance = 1) {
+    const rows = matrix.length;
+    const cols = rows > 0 ? matrix[0].length : 0;
+    const surroundingItems = [];
+    const isBoundedRowIndex = (index) => isValueInRange(index, 0, rows - 1);
+    const isBoundedColIndex = (index) => isValueInRange(index, 0, cols - 1);
+    const areCurrentIndicesEqualToInitial = (i, j) => i === rowIndex && j === colIndex;
+    let currentRowIndex;
+    let currentColIndex;
     
-    if (rowsCount === 0 || colsCount === 0 || !isRowIndexValid(rowIndex) || !isColIndexValid(colIndex)) {
-        return surroundingIndices;
+    if (rows === 0 || cols === 0 || !isBoundedRowIndex(rowIndex) || !isBoundedColIndex(colIndex)) {
+        return surroundingIsurroundingItemsndices;
     }
 
-    if (distance >= rowsCount - 1 && distance >= colsCount - 1) {
+    if (distance >= rows - 1 && distance >= cols - 1) {
         return matrix.flat();
     }
     
     for (let i = -distance; i <= distance; i++) {
         for (let j = -distance; j <= distance; j++) {
-            newRowIndex = rowIndex + i;
-            newColIndex = colIndex + j;
+            currentRowIndex = rowIndex + i;
+            currentColIndex = colIndex + j;
             
-            if (isRowIndexValid(newRowIndex) && isColIndexValid(newColIndex) && !areCurrentIndicesEqualTo(newRowIndex, newColIndex)) {
-                surroundingIndices.push([newRowIndex, newColIndex]);
+            if (isBoundedRowIndex(currentRowIndex) && isBoundedColIndex(currentColIndex) && !areCurrentIndicesEqualToInitial(currentRowIndex, currentColIndex)) {
+                surroundingItems.push([currentRowIndex, currentColIndex]);
             }
         }
     }
     
-    return surroundingIndices;
+    return surroundingItems;
 }
 
 function getMatrixValuesByIndices(matrix, indices) {
@@ -66,7 +66,7 @@ function getMatrixValuesByIndices(matrix, indices) {
 }
 
 const matrix = getRandomIntegerMatrix(4, 4);
-const surroundingIndices = getMatrixSurroundingIndicesFor(matrix, 2, 1);
+const surroundingIndices = getSurroundingItemsInMatrixFor(matrix, 2, 1);
 const values = getMatrixValuesByIndices(matrix, surroundingIndices);
 printMatrix(matrix);
 console.log("");
