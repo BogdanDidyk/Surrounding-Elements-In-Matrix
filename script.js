@@ -10,17 +10,8 @@ function getRandomIntegerArray(length, min, max) {
     return getArrayOfLength(length).map(() => getRandomIntegerNumber(min, max));
 }
 
-function getRandomMatrix(rowsCount = 5, colsCount = 5, rndMin, rndMax) {
-    const matrix = [];
-
-    for (let i = 0; i < rowsCount; i++) {
-        matrix[i] = [];
-        for (let j = 0; j < colsCount; j++) {
-            matrix[i][j] = getRandomIntegerNumber(rndMin, rndMax);
-        }
-    }
-
-    return matrix;
+function getRandomIntegerMatrix(rows, cols, min, max) {
+    return getArrayOfLength(rows).map(() => getRandomIntegerArray(cols, min, max));
 }
 
 function printMatrix(matrix) {
@@ -74,7 +65,7 @@ function getMatrixValuesByIndices(matrix, indices) {
     return values;
 }
 
-const matrix = getRandomMatrix(4, 4);
+const matrix = getRandomIntegerMatrix(4, 4);
 const surroundingIndices = getMatrixSurroundingIndicesFor(matrix, 2, 1);
 const values = getMatrixValuesByIndices(matrix, surroundingIndices);
 printMatrix(matrix);
