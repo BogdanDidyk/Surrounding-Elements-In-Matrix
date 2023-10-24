@@ -58,22 +58,8 @@ function getSurroundingItemsInMatrixFor(matrix, rowIndex, colIndex, distance = 1
     return surroundingItems;
 }
 
-function getMatrixValuesByIndices(matrix, indices) {
-    const length = indices.length;
-    const values = [];
-    
-    for (let i = 0; i < length; i++) {
-        values.push(matrix[indices[i][0]][indices[i][1]]);
-    }
-
-    return values;
-}
-
 const matrix = getRandomIntegerMatrix(4, 4);
 const surroundingIndices = getSurroundingItemsInMatrixFor(matrix, 2, 1);
-const values = getMatrixValuesByIndices(matrix, surroundingIndices);
 printMatrix(matrix, "   ");
 console.log("");
 console.log(surroundingIndices);
-console.log("");
-console.log(values);
