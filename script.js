@@ -2,6 +2,10 @@ function getJoinedArrayStr(arr, separator = ", ") {
     return arr.join(separator);
 }
 
+function printMatrix(matrix, itemSeparator = " ") {
+    matrix.forEach(row => console.log(getJoinedArrayStr(row, itemSeparator)));
+}
+
 function getRandomInteger(min = 0, max = 9) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -16,10 +20,6 @@ function getRandomIntegerArray(length, min, max) {
 
 function getRandomIntegerMatrix(rows, cols, min, max) {
     return getArrayOfLength(rows).map(() => getRandomIntegerArray(cols, min, max));
-}
-
-function printMatrix(matrix) {
-    matrix.forEach(row => console.log(row.join("  ")));
 }
 
 function isValueInRange(value, lowerBoundary, upperBoundary) {
@@ -37,7 +37,7 @@ function getSurroundingItemsInMatrixFor(matrix, rowIndex, colIndex, distance = 1
     let currentColIndex;
     
     if (rows === 0 || cols === 0 || !isBoundedRowIndex(rowIndex) || !isBoundedColIndex(colIndex)) {
-        return surroundingIsurroundingItemsndices;
+        return surroundingItems;
     }
 
     if (distance >= rows - 1 && distance >= cols - 1) {
@@ -72,7 +72,7 @@ function getMatrixValuesByIndices(matrix, indices) {
 const matrix = getRandomIntegerMatrix(4, 4);
 const surroundingIndices = getSurroundingItemsInMatrixFor(matrix, 2, 1);
 const values = getMatrixValuesByIndices(matrix, surroundingIndices);
-printMatrix(matrix);
+printMatrix(matrix, "   ");
 console.log("");
 console.log(surroundingIndices);
 console.log("");
